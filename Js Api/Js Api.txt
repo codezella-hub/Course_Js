@@ -1,3 +1,5 @@
+1/ What Is JSON:
+
 /*
   What Is JSON ?
   - JavaScript Object Notation
@@ -24,3 +26,292 @@
 
 
 
+exemple json : 
+{
+  "widget": {
+    "debug": "on",
+    "window": {
+      "title": "Sample Konfabulator Widget",
+      "name": "main_window",
+      "width": 500,
+      "height": 500
+    },
+    "image": {
+      "src": "Images/Sun.png",
+      "name": "sun1",
+      "hOffset": 250,
+      "vOffset": 250,
+      "alignment": "center"
+    },
+    "text": {
+      "data": "Click Here",
+      "size": 36,
+      "style": "bold",
+      "name": "text1",
+      "hOffset": 250,
+      "vOffset": 100,
+      "alignment": "center",
+      "onMouseUp": "sun1.opacity = (sun1.opacity / 100) * 90;"
+    }
+  }
+}
+
+
+
+exemple xml : 
+
+<widget>
+  <debug>on</debug>
+  <window title="Sample Konfabulator Widget">
+    <name>main_window</name>
+    <width>500</width>
+    <height>500</height>
+  </window>
+  <image src="Images/Sun.png" name="sun1">
+    <hOffset>250</hOffset>
+    <vOffset>250</vOffset>
+    <alignment>center</alignment>
+  </image>
+  <text data="Click Here" size="36" style="bold">
+    <name>text1</name>
+    <hOffset>250</hOffset>
+    <vOffset>100</vOffset>
+    <alignment>center</alignment>
+    <onMouseUp>
+      sun1.opacity = (sun1.opacity / 100) * 90;
+    </onMouseUp>
+  </text>
+</widget>
+
+
+
+***********************************************************************************************************
+JSON Syntax And Compare With JS Object:
+
+/*
+  JSON Syntax
+  - Data Added Inside Curly Braces {  }
+  - Data Added With Key : Value
+  - Key Should Be String Wrapped In Double Quotes
+  - Data Separated By Comma
+  - Square Brackets [] For Arrays
+  - Curly Braces {} For Objects
+
+  Available Data Types
+  - String
+  - Number
+  - Object
+  - Array
+  - Boolean Values
+  - null
+*/
+
+exemple : 
+
+   {
+  "string": "Elzero",
+  "number": 100,
+  "object": { "EG": "Giza", "KSA": "Riyadh" },
+  "array": ["HTML", "CSS", "JS"],
+  "boolean": true,
+  "null": null
+   }
+
+
+   *************************************************************************************
+
+Parse And Stringify:
+
+/*
+  JSON
+  - JSON.parse => Convert Text Data To JS Object
+  - JSON.stringify => Convert JS Object To JSON
+*/
+
+// Get From Server
+const myJsonObjectFromServer = '{"Username": "Osama", "Age": 39}';
+console.log(typeof myJsonObjectFromServer);
+console.log(myJsonObjectFromServer);
+
+// Convert To JS Object
+const myJsObject = JSON.parse(myJsonObjectFromServer);
+console.log(typeof myJsObject);
+console.log(myJsObject);
+
+// Update Data
+myJsObject["Username"] = "Elzero";
+myJsObject["Age"] = 40;
+
+// Send To Server
+const myJsonObjectToServer = JSON.stringify(myJsObject);
+console.log(typeof myJsonObjectToServer);
+console.log(myJsonObjectToServer);
+
+
+*********************************************************************************************************************
+Asynchronous vs Synchronous Programming :
+
+/*
+  To Understand Ajax, Fetch, Promises
+
+  Asynchronous vs Synchronous Programming
+  - Meaning
+
+  Synchronous
+  - Operations Runs in Sequence
+  - Each Operation Must Wait For The Previous One To Complete
+  - Story From Real Life
+
+  Asynchronous
+  - Operations Runs In Parallel
+  - This Means That An Operation Can Occur while Another One Is Still Being Processed
+  - Story From Real Life
+
+  - Facebook As Example
+  - Simulation
+
+  Search
+  - JavaScript Is A Single-Threaded
+  - Multi Threaded Languages
+*/
+
+// Synchronous
+
+// console.log("1");
+// console.log("2");
+// window.alert("Operation");
+// console.log("3");
+
+// Asynchronous
+console.log("1");
+console.log("2");
+setTimeout(() => console.log("Operation"), 3000);
+console.log("3");
+
+******************************************************************************************************
+
+Call Stack And Web API :
+
+/*
+  To Understand Ajax, Fetch, Promises
+
+  Call Stack || Stack Trace
+  -- JavaScript Engine Uses A Call Stack To Manage Execution Contexts
+  -- Mechanism To Make The Interpreter Track Your Calls
+  -- When Function Called It Added To The Stack
+  -- When Function Executed It Removed From The Stack
+  -- After Function Is Finished Executing The Interpreter Continue From The Last Point
+  -- Work Using LIFO Principle => Last In First Out
+  -- Code Execution Is Synchronous.
+  -- Call Stack Detect Web API Methods And Leave It To The Browser To Handle It
+
+  Web API
+  -- Methods Available From The Environment => Browser
+*/
+
+setTimeout(() => {
+  console.log("Web API");
+}, 0);
+
+function one() {
+  console.log("One");
+}
+function two() {
+  one();
+  console.log("Two");
+}
+function three() {
+  two();
+  console.log("Three");
+}
+
+three();
+
+/*
+=================================
+console.log("One");
+=================================
+function one() {
+  console.log("One");
+}
+=================================
+function two() {
+  one();
+  console.log("Two");
+}
+=================================
+function three() {
+  two();
+  console.log("Three");
+}
+=================================
+*/
+
+console.log("#####");
+console.log("One");
+console.log("Two");
+console.log("Three");
+
+*******************************************************************************************
+
+Event Loop And Callback Queue :
+
+/*
+  To Understand Ajax, Fetch, Promises
+
+  Event Loop + Callback Queue
+
+  Story
+  - JavaScript Is A Single Threaded Language "All Operations Executed in Single Thread"
+  - Call Stack Track All Calls
+  - Every Function Is Done Its Poped Out
+  - When You Call Asynchronous Function It Sent To Browser API
+  - Asynchronous Function Like Settimeout Start Its Own Thread
+  - Browser API Act As A Second Thread
+  - API Finish Waiting And Send Back The Function For Processing
+  - Browser API Add The Callback To Callback Queue
+  - Event Loop Wait For Call Stack To Be Empty
+  - Event Loop Get Callback From Callback Queue And Add It To Call Stack
+  - Callback Queue Follow FIFO "First In First Out" Rule
+*/
+
+console.log("One");
+setTimeout(() => {
+  console.log("Three");
+}, 0);
+setTimeout(() => {
+  console.log("Four");
+}, 0);
+console.log("Two");
+
+setTimeout(() => {
+  console.log(myVar);
+}, 0);
+
+let myVar = 100;
+myVar += 100;
+
+***************************************************************************
+What Is AJAX And Network Informations:
+
+/*
+  AJAX
+  - Asynchronous JavaScript And XML
+  - Approach To Use Many Technologies Together [HTML, CSS, Js, DOM]
+  - It Use "XMLHttpRequest" Object To Interact With The Server
+  - You Can Fetch Data Or Send Data Without Page Refresh
+  - Examples
+  --- Youtube Studio
+  --- Google Drive
+  --- Upload Article Photo
+  --- Form Check Name
+
+  Test new XMLHttpRequest();
+  Request And Response
+  Status Code
+*/
+
+let req = new XMLHttpRequest();
+console.log(req);
+
+************************************************************************
